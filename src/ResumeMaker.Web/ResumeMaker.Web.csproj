@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>ResumeMaker.Web</RootNamespace>
+    <AssemblyName>ResumeMaker.Web</AssemblyName>
+    <PublishAot>true</PublishAot>
+    <IsAotCompatible>true</IsAotCompatible>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+    <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumeMaker.Core\ResumeMaker.Core.csproj" />
+    <ProjectReference Include="..\ResumeMaker.Infrastructure\ResumeMaker.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!-- Built-in templates, sample profiles and fonts are served from wwwroot/templates and wwwroot/fonts. -->
+  <ItemGroup>
+    <Content Include="..\..\templates\*.html" Link="wwwroot\templates\%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\..\templates\sample-profile.*.json" Link="wwwroot\templates\%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="..\ResumeMaker.Infrastructure\Assets\Fonts\*.woff2" Link="wwwroot\fonts\%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="ResumeMaker.Web.Tests" />
+  </ItemGroup>
+
+</Project>

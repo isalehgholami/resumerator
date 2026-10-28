@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             x:Class="ResumeMaker.Desktop.Views.TemplatesView"
+             x:DataType="vm:TemplatesViewModel">
+  <StackPanel Classes="page">
+    <TextBlock Classes="h1" Text="{Binding Loc[templates.title]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[templates.hint]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[editor.no_profile]}" IsVisible="{Binding !HasProfile}" />
+
+    <ListBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}" MaxHeight="320"
+             AutomationProperties.Name="{Binding Loc[templates.title]}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:TemplateItemViewModel">
+          <StackPanel Orientation="Horizontal" Spacing="10" Margin="4">
+            <TextBlock Text="{Binding Display}" FontWeight="SemiBold" />
+            <TextBlock Text="{Binding Kind}" Classes="muted" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <CheckBox IsChecked="{Binding AtsMode}" Content="{Binding Loc[templates.ats]}"
+              AutomationProperties.Name="{Binding Loc[templates.ats]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[templates.ats_hint]}" />
+
+    <WrapPanel>
+      <Button Margin="0,0,8,8" Content="{Binding Loc[templates.import]}" Command="{Binding ImportCommand}"
+              AutomationProperties.Name="{Binding Loc[templates.import]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[templates.delete]}" Command="{Binding DeleteCustomCommand}"
+              IsEnabled="{Binding CanDelete}" AutomationProperties.Name="{Binding Loc[templates.delete]}" />
+    </WrapPanel>
+
+    <StackPanel IsVisible="{Binding HasReport}" Spacing="4">
+      <TextBlock Classes="h2" Text="{Binding Loc[templates.report]}" />
+      <Border Classes="card">
+        <ItemsControl ItemsSource="{Binding Report}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="x:String">
+              <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </Border>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

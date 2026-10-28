@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+        xmlns:views="using:ResumeMaker.Desktop.Views"
+        x:Class="ResumeMaker.Desktop.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="ResumeMaker"
+        Width="1180" Height="780" MinWidth="900" MinHeight="620"
+        WindowStartupLocation="CenterScreen">
+
+  <Window.DataTemplates>
+    <DataTemplate DataType="vm:ProfilesViewModel"><views:ProfilesView /></DataTemplate>
+    <DataTemplate DataType="vm:EditorViewModel"><views:EditorView /></DataTemplate>
+    <DataTemplate DataType="vm:TemplatesViewModel"><views:TemplatesView /></DataTemplate>
+    <DataTemplate DataType="vm:LeadBuilderViewModel"><views:LeadBuilderView /></DataTemplate>
+    <DataTemplate DataType="vm:CoverLetterViewModel"><views:CoverLetterView /></DataTemplate>
+    <DataTemplate DataType="vm:ExportViewModel"><views:ExportView /></DataTemplate>
+    <DataTemplate DataType="vm:SettingsViewModel"><views:SettingsView /></DataTemplate>
+  </Window.DataTemplates>
+
+  <DockPanel>
+    <Border DockPanel.Dock="Bottom" Padding="14,6" BorderThickness="0,1,0,0"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}">
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBlock Grid.Column="0" Text="{Binding Status.Message}" TextTrimming="CharacterEllipsis"
+                   Classes.error="{Binding Status.IsError}"
+                   AutomationProperties.Name="{Binding Loc[a11y.status]}" />
+        <TextBlock Grid.Column="1" Text="{Binding ActiveProfileName}" Classes="muted" />
+      </Grid>
+    </Border>
+
+    <Border DockPanel.Dock="Left" Width="220" Padding="8,12"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Text="ResumeMaker" Classes="h1" Margin="10,0,0,12" />
+        <ListBox ItemsSource="{Binding NavItems}" SelectedItem="{Binding SelectedNav}"
+                 AutomationProperties.Name="{Binding Loc[a11y.navigation]}">
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:NavItem">
+              <StackPanel Orientation="Horizontal" Spacing="10" Margin="4,4">
+                <TextBlock Text="{Binding Glyph}" Width="22" TextAlignment="Center" />
+                <TextBlock Text="{Binding Label}" />
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+    </Border>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+      <ContentControl Content="{Binding CurrentPage}" />
+    </ScrollViewer>
+  </DockPanel>
+</Window>

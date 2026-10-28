@@ -1,0 +1,56 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             x:Class="ResumeMaker.Desktop.App"
+             RequestedThemeVariant="Default">
+
+  <Application.DataTemplates>
+    <DataTemplate DataType="vm:LocalizedOption" x:DataType="vm:LocalizedOption">
+      <TextBlock Text="{Binding Label}" />
+    </DataTemplate>
+  </Application.DataTemplates>
+
+  <Application.Styles>
+    <FluentTheme />
+
+    <!-- Vazirmatn is embedded for exports only (woff2 is not loadable by Skia); the UI falls back to system fonts. -->
+    <Style Selector="Window">
+      <Setter Property="FontFamily" Value="Vazirmatn, Tahoma, Segoe UI, Noto Sans, sans-serif" />
+      <Setter Property="FontSize" Value="14" />
+    </Style>
+    <Style Selector="TextBlock.h1">
+      <Setter Property="FontSize" Value="22" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Margin" Value="0,0,0,4" />
+    </Style>
+    <Style Selector="TextBlock.h2">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Margin" Value="0,12,0,0" />
+    </Style>
+    <Style Selector="TextBlock.muted">
+      <Setter Property="Opacity" Value="0.65" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="TextBlock.error">
+      <Setter Property="Foreground" Value="#D13438" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="Border.card">
+      <Setter Property="Padding" Value="12" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+      <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+    </Style>
+    <Style Selector="StackPanel.page">
+      <Setter Property="Margin" Value="24" />
+      <Setter Property="Spacing" Value="10" />
+      <Setter Property="MaxWidth" Value="920" />
+    </Style>
+    <Style Selector="Button.icon">
+      <Setter Property="Padding" Value="8,4" />
+      <Setter Property="MinWidth" Value="32" />
+    </Style>
+  </Application.Styles>
+</Application>

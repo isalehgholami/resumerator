@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             xmlns:dom="using:ResumeMaker.Core.Domain"
+             x:Class="ResumeMaker.Desktop.Views.ProfilesView"
+             x:DataType="vm:ProfilesViewModel">
+  <StackPanel Classes="page">
+    <TextBlock Classes="h1" Text="{Binding Loc[profiles.title]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[profiles.hint]}" />
+
+    <Border Classes="card">
+      <Grid ColumnDefinitions="*,160,Auto" ColumnSpacing="8">
+        <TextBox Grid.Column="0" Text="{Binding NewName}" Watermark="{Binding Loc[profiles.new_name]}"
+                 AutomationProperties.Name="{Binding Loc[profiles.new_name]}" />
+        <ComboBox Grid.Column="1" ItemsSource="{Binding LanguageOptions}" SelectedItem="{Binding NewLanguage}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[field.language]}" />
+        <Button Grid.Column="2" Classes="accent" Content="{Binding Loc[profiles.create]}" Command="{Binding CreateCommand}"
+                AutomationProperties.Name="{Binding Loc[profiles.create]}" />
+      </Grid>
+    </Border>
+
+    <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}" MinHeight="260" MaxHeight="420"
+             AutomationProperties.Name="{Binding Loc[profiles.title]}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="dom:ProfileSummary">
+          <Grid ColumnDefinitions="*,60,170" Margin="4">
+            <TextBlock Grid.Column="0" Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+            <TextBlock Grid.Column="1" Text="{Binding Language}" Classes="muted" />
+            <TextBlock Grid.Column="2" Text="{Binding UpdatedAt, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" Classes="muted" />
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <WrapPanel>
+      <Button Margin="0,0,8,8" Classes="accent" Content="{Binding Loc[profiles.open]}" Command="{Binding OpenSelectedCommand}"
+              AutomationProperties.Name="{Binding Loc[profiles.open]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[profiles.duplicate]}" Command="{Binding DuplicateCommand}"
+              AutomationProperties.Name="{Binding Loc[profiles.duplicate]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[profiles.delete]}" Command="{Binding DeleteCommand}"
+              AutomationProperties.Name="{Binding Loc[profiles.delete]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[profiles.import]}" Command="{Binding ImportCommand}"
+              AutomationProperties.Name="{Binding Loc[profiles.import]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[profiles.export]}" Command="{Binding ExportSelectedCommand}"
+              AutomationProperties.Name="{Binding Loc[profiles.export]}" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

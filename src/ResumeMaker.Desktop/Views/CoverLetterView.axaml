@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             x:Class="ResumeMaker.Desktop.Views.CoverLetterView"
+             x:DataType="vm:CoverLetterViewModel">
+  <StackPanel Classes="page">
+    <TextBlock Classes="h1" Text="{Binding Loc[cover.title]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[cover.hint]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[editor.no_profile]}" IsVisible="{Binding !HasProfile}" />
+
+    <Border Classes="card">
+      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+        <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding Company}" UseFloatingWatermark="True"
+                 Watermark="{Binding Loc[cover.company]}" AutomationProperties.Name="{Binding Loc[cover.company]}" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Position}" UseFloatingWatermark="True"
+                 Watermark="{Binding Loc[cover.position]}" AutomationProperties.Name="{Binding Loc[cover.position]}" />
+        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding Keywords}" UseFloatingWatermark="True"
+                 Watermark="{Binding Loc[cover.keywords]}" AutomationProperties.Name="{Binding Loc[cover.keywords]}" />
+        <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding ToneOptions}" SelectedItem="{Binding SelectedTone}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[cover.tone]}" />
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding LanguageOptions}" SelectedItem="{Binding SelectedLanguage}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[field.language]}" />
+      </Grid>
+    </Border>
+
+    <WrapPanel>
+      <Button Margin="0,0,8,8" Classes="accent" Content="{Binding Loc[lead.generate]}" Command="{Binding GenerateCommand}"
+              AutomationProperties.Name="{Binding Loc[lead.generate]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[lead.copy]}" Command="{Binding CopyCommand}"
+              AutomationProperties.Name="{Binding Loc[lead.copy]}" />
+      <Button Margin="0,0,8,8" Content="ChatGPT" Command="{Binding OpenLinkCommand}" CommandParameter="{Binding Shortcuts[0]}"
+              AutomationProperties.Name="ChatGPT" />
+      <Button Margin="0,0,8,8" Content="Claude" Command="{Binding OpenLinkCommand}" CommandParameter="{Binding Shortcuts[1]}"
+              AutomationProperties.Name="Claude" />
+      <Button Margin="0,0,8,8" Content="Gemini" Command="{Binding OpenLinkCommand}" CommandParameter="{Binding Shortcuts[2]}"
+              AutomationProperties.Name="Gemini" />
+    </WrapPanel>
+
+    <TextBox Text="{Binding Lead}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="140" MaxHeight="260"
+             FlowDirection="LeftToRight" FontFamily="Consolas, Menlo, monospace"
+             IsVisible="{Binding HasLead}" AutomationProperties.Name="{Binding Loc[lead.output]}" />
+
+    <TextBlock Classes="h2" Text="{Binding Loc[cover.paste]}" />
+    <TextBox Text="{Binding Body}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="220"
+             AutomationProperties.Name="{Binding Loc[cover.paste]}" />
+    <TextBlock Classes="muted">
+      <Run Text="{Binding Loc[cover.words]}" /><Run Text=": " /><Run Text="{Binding WordCount}" />
+    </TextBlock>
+    <TextBlock Classes="error" Text="{Binding Error}" IsVisible="{Binding HasError}" />
+    <Button Content="{Binding Loc[export.chrome_link]}" Command="{Binding OpenChromeDownloadCommand}"
+            IsVisible="{Binding ChromeMissing}" Classes="accent" />
+
+    <WrapPanel>
+      <Button Margin="0,0,8,8" Content="{Binding Loc[cover.paste_clipboard]}" Command="{Binding PasteCommand}"
+              AutomationProperties.Name="{Binding Loc[cover.paste_clipboard]}" />
+      <Button Margin="0,0,8,8" Classes="accent" Content="{Binding Loc[cover.save]}" Command="{Binding SaveCommand}"
+              AutomationProperties.Name="{Binding Loc[cover.save]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[cover.export_pdf]}" Command="{Binding ExportPdfCommand}"
+              AutomationProperties.Name="{Binding Loc[cover.export_pdf]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[cover.export_html]}" Command="{Binding ExportHtmlCommand}"
+              AutomationProperties.Name="{Binding Loc[cover.export_html]}" />
+    </WrapPanel>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.contact.full_name }}</title>
+<style>
+@font-face{font-family:'RMFont';font-weight:400;font-style:normal;src:url(data:font/woff2;base64,{{ font_base64 }}) format('woff2')}
+@font-face{font-family:'RMFont';font-weight:700;font-style:normal;src:url(data:font/woff2;base64,{{ font_bold_base64 }}) format('woff2')}
+@page{size:A4;margin:1cm}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;line-height:1.55}
+@media screen{
+body{max-width:190mm;margin:0 auto;padding:1cm}
+}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+article,.item{break-inside:avoid}
+h2{break-after:avoid}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:.8em}
+.date{white-space:nowrap}
+.loc::before{content:"·";margin-inline:.4em}
+.sub{display:flex;flex-wrap:wrap}
+.tags{display:flex;flex-wrap:wrap;gap:.3em .4em}
+.contact{display:flex;flex-wrap:wrap;gap:0 1.1em}
+.contact span{unicode-bidi:isolate}
+.tags li{unicode-bidi:plaintext}
+.url{font-size:.85em}
+.desc{white-space:pre-line}
+body{font-family:'RMFont',Tahoma,Arial,sans-serif;font-size:11pt;line-height:1.7;color:#1f2933}
+header{padding-block-end:4mm;border-block-end:3pt solid {{ primary_color }};margin-block-end:9mm}
+h1{font-size:23pt;font-weight:700;color:{{ primary_color }}}
+.title{font-size:12pt;color:{{ accent_color }};font-weight:700}
+.contact{margin-block-start:2.5mm;font-size:9pt;color:#52606d}
+.recipient{margin-block-end:7mm}
+.recipient p{font-weight:700}
+.recipient .position{color:{{ primary_color }}}
+.letter p{margin-block-end:4mm;text-align:justify;break-inside:avoid;white-space:pre-line}
+.letter .greet{font-weight:700;text-align:start}
+.sign{margin-block-start:8mm}
+.sign strong{display:block;color:{{ primary_color }};font-size:12pt}
+</style>
+</head>
+<body>
+<header><h1>{{ profile.contact.full_name }}</h1>{{ if profile.contact.title }}<p class="title">{{ profile.contact.title }}</p>{{ end }}<p class="contact">{{ if profile.contact.email }}<span dir="ltr">{{ profile.contact.email }}</span>{{ end }}{{ if profile.contact.phone }}<span dir="ltr">{{ profile.contact.phone | digits }}</span>{{ end }}{{ if profile.contact.location }}<span>{{ profile.contact.location }}</span>{{ end }}{{ if profile.contact.links.linkedin }}<span dir="ltr">{{ profile.contact.links.linkedin }}</span>{{ end }}{{ if profile.contact.links.github }}<span dir="ltr">{{ profile.contact.links.github }}</span>{{ end }}{{ if profile.contact.links.website }}<span dir="ltr">{{ profile.contact.links.website }}</span>{{ end }}</p></header>
+<main>
+{{ if letter.company }}<section class="recipient"><p>{{ letter.company }}</p>{{ if letter.position }}<p class="position">{{ letter.position }}</p>{{ end }}</section>{{ else }}{{ if letter.position }}<section class="recipient"><p class="position">{{ letter.position }}</p></section>{{ end }}{{ end }}
+<article class="letter">
+<p class="greet">{{ labels.dear }}</p>
+{{ for para in paragraphs }}<p>{{ para }}</p>{{ end }}
+</article>
+<footer class="sign"><p>{{ labels.sincerely }}</p><strong>{{ profile.contact.full_name }}</strong></footer>
+</main>
+<div hidden>{{ for section in profile.sections }}<section data-type="{{ section.type }}"></section>{{ end }}</div>
+</body>
+</html>

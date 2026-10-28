@@ -1,0 +1,187 @@
+{
+  "id": "3fa85f64-5717-4562-b3fc-752c91d29c1b",
+  "name": "رزومه شغلی - شرکت نمونه",
+  "language": "fa",
+  "template_id": "modern",
+  "ats_mode": false,
+  "created_at": "2026-10-01T09:00:00Z",
+  "updated_at": "2026-10-28T13:30:00Z",
+  "contact": {
+    "full_name": "مریم احمدی",
+    "title": "مهندس نرم‌افزار ارشد",
+    "email": "maryam.ahmadi@example.com",
+    "phone": "+98 912 345 6789",
+    "location": "تهران، ایران",
+    "links": {
+      "linkedin": "linkedin.com/in/maryam-ahmadi",
+      "github": "github.com/maryam",
+      "website": "maryam.dev"
+    }
+  },
+  "summary": "توسعه‌دهنده فول‌استک با ۸ سال سابقه در ساخت سامانه‌های پرترافیک با C# و TypeScript. سرپرستی تیم‌های تا ۶ نفره، کاهش ۳۵ درصدی هزینه‌های ابری و تحویل محصولاتی با بیش از یک میلیون کاربر.",
+  "sections": [
+    {
+      "id": "exp-1",
+      "type": "experience",
+      "title": "تجربه کاری",
+      "enabled": true,
+      "order": 1,
+      "items": [
+        {
+          "title": "مهندس نرم‌افزار ارشد",
+          "company": "شرکت فناوری نوین",
+          "location": "تهران",
+          "start": "1401/03",
+          "description": "سرپرستی تیم ۵ نفره توسعه سامانه مدیریت سفارش‌ها. بازطراحی خط لوله رویدادها و کاهش تأخیر از ۹۰۰ به ۲۲۰ میلی‌ثانیه و کاهش ۳۵ درصدی هزینه زیرساخت.",
+          "tags": ["C#", ".NET 9", "Azure", "React", "PostgreSQL"]
+        },
+        {
+          "title": "مهندس نرم‌افزار",
+          "company": "گروه نرم‌افزاری پارس",
+          "location": "اصفهان",
+          "start": "1397/04",
+          "end": "1401/02",
+          "description": "توسعه سرویس‌های REST و gRPC برای یک محصول پرداخت، معرفی تست قراردادی و افزایش پوشش تست خودکار از ۴۰ به ۸۵ درصد.",
+          "tags": ["Java", "gRPC", "Kubernetes"]
+        }
+      ]
+    },
+    {
+      "id": "edu-1",
+      "type": "education",
+      "title": "تحصیلات",
+      "enabled": true,
+      "order": 2,
+      "items": [
+        {
+          "degree": "کارشناسی ارشد مهندسی کامپیوتر",
+          "institution": "دانشگاه صنعتی شریف",
+          "location": "تهران",
+          "start": "1395",
+          "end": "1397",
+          "description": "گرایش سیستم‌های توزیع‌شده. پایان‌نامه درباره پروتکل‌های اجماع در محیط‌های لبه."
+        },
+        {
+          "degree": "کارشناسی مهندسی کامپیوتر",
+          "institution": "دانشگاه صنعتی اصفهان",
+          "start": "1391",
+          "end": "1395"
+        }
+      ]
+    },
+    {
+      "id": "skills-1",
+      "type": "skills",
+      "title": "مهارت‌ها",
+      "enabled": true,
+      "order": 3,
+      "items": [
+        {
+          "category": "زبان‌های برنامه‌نویسی",
+          "entries": [
+            { "name": "C#", "level": "حرفه‌ای" },
+            { "name": "TypeScript", "level": "پیشرفته" },
+            { "name": "SQL", "level": "پیشرفته" }
+          ]
+        },
+        {
+          "category": "ابر و دوآپس",
+          "entries": [
+            { "name": "Azure" },
+            { "name": "Docker" },
+            { "name": "Terraform", "level": "متوسط" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lang-1",
+      "type": "languages",
+      "title": "زبان‌ها",
+      "enabled": true,
+      "order": 4,
+      "items": [
+        { "name": "فارسی", "level": "زبان مادری" },
+        { "name": "انگلیسی", "level": "پیشرفته" },
+        { "name": "آلمانی", "level": "مقدماتی" }
+      ]
+    },
+    {
+      "id": "proj-1",
+      "type": "projects",
+      "title": "پروژه‌ها",
+      "enabled": true,
+      "order": 5,
+      "items": [
+        {
+          "title": "OpenQueue",
+          "url": "github.com/maryam/openqueue",
+          "description": "صف کار سبک و متن‌باز برای دات‌نت با ۲٫۴ هزار ستاره در گیت‌هاب و لایه ذخیره‌سازی افزونه‌پذیر.",
+          "tags": ["C#", "متن‌باز", "Redis"]
+        },
+        {
+          "title": "سفرانه",
+          "url": "safarane.app",
+          "description": "برنامه وب تقسیم هزینه سفر برای گروه‌های مسافرتی با ۳۰ هزار کاربر فعال ماهانه."
+        }
+      ]
+    },
+    {
+      "id": "award-1",
+      "type": "awards",
+      "title": "جوایز و افتخارات",
+      "enabled": true,
+      "order": 6,
+      "items": [
+        {
+          "title": "جایزه تعالی مهندسی",
+          "issuer": "شرکت فناوری نوین",
+          "date": "1403/09",
+          "description": "به پاس کاهش تأخیر و هزینه خط لوله رویدادها."
+        }
+      ]
+    },
+    {
+      "id": "int-1",
+      "type": "interests",
+      "title": "علایق",
+      "enabled": true,
+      "order": 7,
+      "items": [
+        { "name": "کوهنوردی" },
+        { "name": "عکاسی آنالوگ" },
+        { "name": "شطرنج" }
+      ]
+    },
+    {
+      "id": "custom-1",
+      "type": "custom",
+      "title": "فعالیت‌های داوطلبانه",
+      "enabled": true,
+      "order": 8,
+      "items": [
+        {
+          "title": "مربی برنامه‌نویسی، باشگاه کد تهران",
+          "description": "جلسات هفتگی آموزش برنامه‌نویسی برای دانش‌آموزان دبیرستان."
+        }
+      ]
+    },
+    {
+      "id": "custom-2",
+      "type": "custom",
+      "title": "معرف‌ها",
+      "enabled": false,
+      "order": 9,
+      "items": [
+        {
+          "title": "در صورت نیاز ارائه می‌شود",
+          "description": "این بخش غیرفعال است و نباید در خروجی بیاید."
+        }
+      ]
+    }
+  ],
+  "theme": {
+    "primary_color": "#1a4d8f",
+    "accent_color": "#e8590c"
+  }
+}

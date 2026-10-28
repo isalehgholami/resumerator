@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ profile.contact.full_name }}</title>
+<style>
+@font-face{font-family:'RMFont';font-weight:400;font-style:normal;src:url(data:font/woff2;base64,{{ font_base64 }}) format('woff2')}
+@font-face{font-family:'RMFont';font-weight:700;font-style:normal;src:url(data:font/woff2;base64,{{ font_bold_base64 }}) format('woff2')}
+@page{size:A4;margin:1cm}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;line-height:1.55}
+@media screen{
+body{max-width:190mm;margin:0 auto;padding:1cm}
+}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+article,.item{break-inside:avoid}
+h2{break-after:avoid}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:.8em}
+.date{white-space:nowrap}
+.loc::before{content:"·";margin-inline:.4em}
+.sub{display:flex;flex-wrap:wrap}
+.tags{display:flex;flex-wrap:wrap;gap:.3em .4em}
+.contact{display:flex;flex-wrap:wrap;gap:0 1.1em}
+.contact span{unicode-bidi:isolate}
+.tags li{unicode-bidi:plaintext}
+.url{font-size:.85em}
+.desc{white-space:pre-line}
+body{font-family:'RMFont',Tahoma,Arial,sans-serif;font-size:9pt;line-height:1.45;color:#222}
+.page{display:grid;grid-template-columns:60mm 1fr;gap:0;min-height:260mm}
+aside{background:{{ primary_color }};color:#fff;padding:8mm 5mm}
+.body{padding:8mm 0;padding-inline-start:7mm}
+header{margin-block-end:5mm}
+h1{font-size:23pt;font-weight:700;color:{{ primary_color }}}
+.title{font-size:11.5pt;color:{{ accent_color }};font-weight:700}
+aside h2{font-size:10pt;color:#fff;border-block-end:.8pt solid rgba(255,255,255,.55);padding-block-end:1mm;margin-block-end:2mm;text-transform:uppercase}
+html[dir="rtl"] aside h2{text-transform:none}
+aside section{margin-block-end:5mm}
+aside .contact{display:flex;flex-direction:column;gap:1.2mm;font-size:8.8pt;word-break:break-word}
+aside h3{font-size:9.5pt}
+aside .tags li{background:rgba(255,255,255,.18);border-radius:1.5mm;padding:0 1.8mm;font-size:8.5pt}
+aside .langs li{margin-block-end:1.2mm}
+aside .lvl{opacity:.8}
+.body section{margin-block-end:5mm}
+.body h2{font-size:11pt;color:{{ primary_color }};border-block-end:1pt solid {{ accent_color }};padding-block-end:.8mm;margin-block-end:2.5mm}
+h3{font-size:10pt;font-weight:700}
+.item{margin-block-end:2.2mm}
+.sub{font-weight:700;color:#444;font-size:9pt}
+.sub .loc{font-weight:400}
+.date,.url{color:#666;font-size:8.8pt}
+.desc{margin-block-start:1mm}
+.body .tags li{background:#eef2f7;border-radius:1.5mm;padding:0 1.8mm;font-size:8.5pt}
+</style>
+</head>
+<body>
+<div class="page">
+<aside>
+<section class="contact-block"><h2>{{ labels.contact }}</h2><p class="contact">{{ if profile.contact.email }}<span dir="ltr">{{ profile.contact.email }}</span>{{ end }}{{ if profile.contact.phone }}<span dir="ltr">{{ profile.contact.phone | digits }}</span>{{ end }}{{ if profile.contact.location }}<span>{{ profile.contact.location }}</span>{{ end }}{{ if profile.contact.links.linkedin }}<span dir="ltr">{{ profile.contact.links.linkedin }}</span>{{ end }}{{ if profile.contact.links.github }}<span dir="ltr">{{ profile.contact.links.github }}</span>{{ end }}{{ if profile.contact.links.website }}<span dir="ltr">{{ profile.contact.links.website }}</span>{{ end }}</p></section>
+{{ for section in profile.sections }}
+{{ if section.type == "skills" }}<section class="s-skills"><h2>{{ section.title }}</h2>{{ for item in section.items }}<article class="item skill"><h3>{{ item.category }}</h3><ul class="tags">{{ for e in item.entries }}<li>{{ e.name }}{{ if e.level }} <small>({{ e.level }})</small>{{ end }}</li>{{ end }}</ul></article>{{ end }}</section>{{ end }}
+{{ if section.type == "languages" }}<section class="s-languages"><h2>{{ section.title }}</h2><ul class="langs">{{ for item in section.items }}<li class="item"><b>{{ item.name }}</b>{{ if item.level }} <span class="lvl">{{ item.level }}</span>{{ end }}</li>{{ end }}</ul></section>{{ end }}
+{{ if section.type == "interests" }}<section class="s-interests"><h2>{{ section.title }}</h2><ul class="tags">{{ for item in section.items }}<li>{{ item.name }}</li>{{ end }}</ul></section>{{ end }}
+{{ end }}
+</aside>
+<main class="body">
+<header><h1>{{ profile.contact.full_name }}</h1>{{ if profile.contact.title }}<p class="title">{{ profile.contact.title }}</p>{{ end }}</header>
+{{ if profile.summary }}<section class="summary"><h2>{{ labels.summary }}</h2><p>{{ profile.summary }}</p></section>{{ end }}
+{{ for section in profile.sections }}
+{{ if section.type == "experience" }}<section class="s-experience"><h2>{{ section.title }}</h2>{{ for item in section.items }}<article class="item"><div class="row"><h3>{{ item.title }}</h3>{{ if item.start }}<span class="date">{{ item.start | digits }} {{ labels.to }} {{ if item.end }}{{ item.end | digits }}{{ else }}{{ labels.present }}{{ end }}</span>{{ else }}{{ if item.end }}<span class="date">{{ item.end | digits }}</span>{{ end }}{{ end }}</div><div class="sub"><span>{{ item.company }}</span>{{ if item.location }}<span class="loc">{{ item.location }}</span>{{ end }}</div>{{ if item.description }}<p class="desc">{{ item.description }}</p>{{ end }}{{ if item.tags }}<ul class="tags">{{ for tag in item.tags }}<li>{{ tag }}</li>{{ end }}</ul>{{ end }}</article>{{ end }}</section>{{ end }}
+{{ if section.type == "education" }}<section class="s-education"><h2>{{ section.title }}</h2>{{ for item in section.items }}<article class="item"><div class="row"><h3>{{ item.degree }}</h3>{{ if item.start }}<span class="date">{{ item.start | digits }} {{ labels.to }} {{ if item.end }}{{ item.end | digits }}{{ else }}{{ labels.present }}{{ end }}</span>{{ else }}{{ if item.end }}<span class="date">{{ item.end | digits }}</span>{{ end }}{{ end }}</div><div class="sub"><span>{{ item.institution }}</span>{{ if item.location }}<span class="loc">{{ item.location }}</span>{{ end }}</div>{{ if item.description }}<p class="desc">{{ item.description }}</p>{{ end }}</article>{{ end }}</section>{{ end }}
+{{ if section.type == "projects" }}<section class="s-projects"><h2>{{ section.title }}</h2>{{ for item in section.items }}<article class="item"><div class="row"><h3>{{ item.title }}</h3>{{ if item.url }}<span class="url" dir="ltr">{{ item.url }}</span>{{ end }}</div>{{ if item.description }}<p class="desc">{{ item.description }}</p>{{ end }}{{ if item.tags }}<ul class="tags">{{ for tag in item.tags }}<li>{{ tag }}</li>{{ end }}</ul>{{ end }}</article>{{ end }}</section>{{ end }}
+{{ if section.type == "awards" }}<section class="s-awards"><h2>{{ section.title }}</h2>{{ for item in section.items }}<article class="item"><div class="row"><h3>{{ item.title }}</h3>{{ if item.date }}<span class="date">{{ item.date | digits }}</span>{{ end }}</div>{{ if item.issuer }}<div class="sub"><span>{{ item.issuer }}</span></div>{{ end }}{{ if item.description }}<p class="desc">{{ item.description }}</p>{{ end }}</article>{{ end }}</section>{{ end }}
+{{ if section.type == "custom" }}<section class="s-custom"><h2>{{ section.title }}</h2>{{ for item in section.items }}<article class="item">{{ if item.title }}<h3>{{ item.title }}</h3>{{ end }}{{ if item.description }}<p class="desc">{{ item.description }}</p>{{ end }}</article>{{ end }}</section>{{ end }}
+{{ end }}
+</main>
+</div>
+</body>
+</html>

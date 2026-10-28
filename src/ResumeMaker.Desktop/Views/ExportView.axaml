@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             x:Class="ResumeMaker.Desktop.Views.ExportView"
+             x:DataType="vm:ExportViewModel">
+  <StackPanel Classes="page">
+    <TextBlock Classes="h1" Text="{Binding Loc[export.title]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[export.hint]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[editor.no_profile]}" IsVisible="{Binding !HasProfile}" />
+
+    <Border Classes="card">
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+        <ComboBox Grid.Column="0" ItemsSource="{Binding FormatOptions}" SelectedItem="{Binding SelectedFormat}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[export.format]}" />
+        <ComboBox Grid.Column="1" ItemsSource="{Binding DpiOptions}" SelectedItem="{Binding SelectedDpi}"
+                  IsEnabled="{Binding IsPng}" HorizontalAlignment="Stretch"
+                  AutomationProperties.Name="{Binding Loc[export.dpi]}" />
+      </Grid>
+    </Border>
+
+    <Button Classes="accent" Content="{Binding Loc[export.run]}" Command="{Binding ExportCommand}" IsEnabled="{Binding !IsBusy}"
+            HorizontalAlignment="Left" AutomationProperties.Name="{Binding Loc[export.run]}" />
+    <ProgressBar IsIndeterminate="True" IsVisible="{Binding IsBusy}" />
+
+    <TextBlock Classes="error" Text="{Binding Error}" IsVisible="{Binding HasError}" />
+    <StackPanel IsVisible="{Binding ChromeMissing}" Spacing="4">
+      <TextBlock Classes="muted" Text="{Binding Loc[export.chrome_hint]}" />
+      <Button Content="{Binding ChromeUrl}" Command="{Binding OpenChromeDownloadCommand}" Classes="accent"
+              HorizontalAlignment="Left" AutomationProperties.Name="{Binding Loc[export.chrome_link]}" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

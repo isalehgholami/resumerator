@@ -1,0 +1,145 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             x:Class="ResumeMaker.Desktop.Views.EditorView"
+             x:DataType="vm:EditorViewModel">
+  <Panel>
+    <TextBlock Classes="muted" Margin="24" IsVisible="{Binding HasNoProfile}" Text="{Binding Loc[editor.no_profile]}" />
+
+    <StackPanel Classes="page" IsVisible="{Binding HasProfile}">
+      <Grid ColumnDefinitions="*,150,Auto" ColumnSpacing="8">
+        <TextBox Grid.Column="0" Text="{Binding ProfileName}" Watermark="{Binding Loc[editor.profile_name]}"
+                 UseFloatingWatermark="True" AutomationProperties.Name="{Binding Loc[editor.profile_name]}" />
+        <ComboBox Grid.Column="1" ItemsSource="{Binding LanguageOptions}" SelectedItem="{Binding SelectedLanguage}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[editor.resume_language]}" />
+        <Button Grid.Column="2" Classes="accent" Content="{Binding Loc[editor.preview]}" Command="{Binding PreviewCommand}"
+                AutomationProperties.Name="{Binding Loc[editor.preview]}" />
+      </Grid>
+      <TextBlock Classes="muted" Text="{Binding Loc[editor.preview_hint]}" />
+      <TextBlock Classes="muted" Text="{Binding Issues}" IsVisible="{Binding HasIssues}" />
+
+      <TextBlock Classes="h2" Text="{Binding Loc[editor.contact]}" />
+      <Border Classes="card">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+          <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding FullName}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.full_name]}" AutomationProperties.Name="{Binding Loc[field.full_name]}" />
+          <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding JobTitle}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.job_title]}" AutomationProperties.Name="{Binding Loc[field.job_title]}" />
+          <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Email}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.email]}" AutomationProperties.Name="{Binding Loc[field.email]}" />
+          <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Phone}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.phone]}" AutomationProperties.Name="{Binding Loc[field.phone]}" />
+          <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Location}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.location]}" AutomationProperties.Name="{Binding Loc[field.location]}" />
+          <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Website}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.website]}" AutomationProperties.Name="{Binding Loc[field.website]}" />
+          <TextBox Grid.Row="3" Grid.Column="0" Text="{Binding LinkedIn}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.linkedin]}" AutomationProperties.Name="{Binding Loc[field.linkedin]}" />
+          <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding GitHub}" UseFloatingWatermark="True"
+                   Watermark="{Binding Loc[field.github]}" AutomationProperties.Name="{Binding Loc[field.github]}" />
+        </Grid>
+      </Border>
+
+      <TextBlock Classes="h2" Text="{Binding Loc[editor.summary]}" />
+      <TextBox Text="{Binding Summary}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="90"
+               AutomationProperties.Name="{Binding Loc[editor.summary]}" />
+
+      <TextBlock Classes="h2" Text="{Binding Loc[editor.theme]}" />
+      <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+        <TextBox Grid.Column="0" Text="{Binding PrimaryColor}" Watermark="#1a73e8" UseFloatingWatermark="True"
+                 AutomationProperties.Name="{Binding Loc[field.primary_color]}" />
+        <TextBox Grid.Column="1" Text="{Binding AccentColor}" Watermark="#ff6b6b" UseFloatingWatermark="True"
+                 AutomationProperties.Name="{Binding Loc[field.accent_color]}" />
+      </Grid>
+
+      <TextBlock Classes="h2" Text="{Binding Loc[editor.sections]}" />
+      <Grid ColumnDefinitions="*,150,Auto" ColumnSpacing="8">
+        <ComboBox Grid.Column="1" ItemsSource="{Binding SectionTypeOptions}" SelectedItem="{Binding NewSectionType}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[editor.section_type]}" />
+        <Button Grid.Column="2" Content="{Binding Loc[editor.add_section]}" Command="{Binding AddSectionCommand}"
+                AutomationProperties.Name="{Binding Loc[editor.add_section]}" />
+      </Grid>
+
+      <ListBox ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}"
+               AutomationProperties.Name="{Binding Loc[editor.sections]}">
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:SectionViewModel">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="6">
+              <CheckBox Grid.Column="0" IsChecked="{Binding Enabled}" MinWidth="0"
+                        AutomationProperties.Name="{Binding Loc[editor.section_enabled]}" />
+              <TextBox Grid.Column="1" Text="{Binding Title}" AutomationProperties.Name="{Binding Loc[editor.section_title]}" />
+              <Button Grid.Column="2" Classes="icon" Content="▲" Command="{Binding MoveUpCommand}"
+                      AutomationProperties.Name="{Binding Loc[editor.up]}" />
+              <Button Grid.Column="3" Classes="icon" Content="▼" Command="{Binding MoveDownCommand}"
+                      AutomationProperties.Name="{Binding Loc[editor.down]}" />
+              <Button Grid.Column="4" Classes="icon" Content="✕" Command="{Binding RemoveCommand}"
+                      AutomationProperties.Name="{Binding Loc[editor.delete]}" />
+            </Grid>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Spacing="8" IsVisible="{Binding SelectedSection, Converter={x:Static ObjectConverters.IsNotNull}}">
+        <TextBlock Classes="h2" Text="{Binding Loc[editor.items]}" />
+        <Button Content="{Binding Loc[editor.add_item]}" Command="{Binding SelectedSection.AddItemCommand}"
+                AutomationProperties.Name="{Binding Loc[editor.add_item]}" />
+        <ItemsControl ItemsSource="{Binding SelectedSection.Items}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Spacing="8" />
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:ItemViewModel">
+              <Border Classes="card">
+                <StackPanel Spacing="8">
+                  <StackPanel Orientation="Horizontal" Spacing="6" HorizontalAlignment="Right">
+                    <Button Classes="icon" Content="▲" Command="{Binding MoveUpCommand}" AutomationProperties.Name="{Binding Loc[editor.up]}" />
+                    <Button Classes="icon" Content="▼" Command="{Binding MoveDownCommand}" AutomationProperties.Name="{Binding Loc[editor.down]}" />
+                    <Button Classes="icon" Content="✕" Command="{Binding RemoveCommand}" AutomationProperties.Name="{Binding Loc[editor.delete]}" />
+                  </StackPanel>
+                  <TextBox Text="{Binding Title}" IsVisible="{Binding ShowTitle}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.title]}" AutomationProperties.Name="{Binding Loc[field.title]}" />
+                  <TextBox Text="{Binding Degree}" IsVisible="{Binding ShowEducation}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.degree]}" AutomationProperties.Name="{Binding Loc[field.degree]}" />
+                  <TextBox Text="{Binding Institution}" IsVisible="{Binding ShowEducation}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.institution]}" AutomationProperties.Name="{Binding Loc[field.institution]}" />
+                  <TextBox Text="{Binding Company}" IsVisible="{Binding ShowCompany}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.company]}" AutomationProperties.Name="{Binding Loc[field.company]}" />
+                  <TextBox Text="{Binding Location}" IsVisible="{Binding ShowLocation}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.location]}" AutomationProperties.Name="{Binding Loc[field.location]}" />
+                  <Grid ColumnDefinitions="*,*" ColumnSpacing="8" IsVisible="{Binding ShowDates}">
+                    <TextBox Grid.Column="0" Text="{Binding Start}" UseFloatingWatermark="True"
+                             Watermark="{Binding Loc[field.start]}" AutomationProperties.Name="{Binding Loc[field.start]}" />
+                    <TextBox Grid.Column="1" Text="{Binding End}" UseFloatingWatermark="True"
+                             Watermark="{Binding Loc[field.end]}" AutomationProperties.Name="{Binding Loc[field.end]}" />
+                  </Grid>
+                  <TextBox Text="{Binding Issuer}" IsVisible="{Binding ShowAward}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.issuer]}" AutomationProperties.Name="{Binding Loc[field.issuer]}" />
+                  <TextBox Text="{Binding Date}" IsVisible="{Binding ShowAward}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.date]}" AutomationProperties.Name="{Binding Loc[field.date]}" />
+                  <TextBox Text="{Binding Name}" IsVisible="{Binding ShowName}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.name]}" AutomationProperties.Name="{Binding Loc[field.name]}" />
+                  <TextBox Text="{Binding Level}" IsVisible="{Binding ShowLevel}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.level]}" AutomationProperties.Name="{Binding Loc[field.level]}" />
+                  <TextBox Text="{Binding Url}" IsVisible="{Binding ShowUrl}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.url]}" AutomationProperties.Name="{Binding Loc[field.url]}" />
+                  <TextBox Text="{Binding Category}" IsVisible="{Binding ShowSkills}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.category]}" AutomationProperties.Name="{Binding Loc[field.category]}" />
+                  <TextBox Text="{Binding EntriesText}" IsVisible="{Binding ShowSkills}" AcceptsReturn="True" MinHeight="80"
+                           UseFloatingWatermark="True" Watermark="{Binding Loc[field.entries]}"
+                           AutomationProperties.Name="{Binding Loc[field.entries]}" />
+                  <TextBox Text="{Binding Description}" IsVisible="{Binding ShowDescription}" AcceptsReturn="True"
+                           TextWrapping="Wrap" MinHeight="70" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.description]}" AutomationProperties.Name="{Binding Loc[field.description]}" />
+                  <TextBox Text="{Binding TagsText}" IsVisible="{Binding ShowTags}" UseFloatingWatermark="True"
+                           Watermark="{Binding Loc[field.tags]}" AutomationProperties.Name="{Binding Loc[field.tags]}" />
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </StackPanel>
+  </Panel>
+</UserControl>

@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ResumeMaker.Desktop.ViewModels"
+             x:Class="ResumeMaker.Desktop.Views.LeadBuilderView"
+             x:DataType="vm:LeadBuilderViewModel">
+  <StackPanel Classes="page">
+    <TextBlock Classes="h1" Text="{Binding Loc[lead.title]}" />
+    <TextBlock Classes="muted" Text="{Binding Loc[lead.hint]}" />
+
+    <Border Classes="card">
+      <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" ColumnSpacing="8" RowSpacing="8">
+        <ComboBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding StyleOptions}" SelectedItem="{Binding SelectedStyle}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[lead.style]}" />
+        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding LanguageOptions}" SelectedItem="{Binding SelectedLanguage}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[field.language]}" />
+        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding PrimaryColor}" UseFloatingWatermark="True"
+                 Watermark="{Binding Loc[field.primary_color]}" AutomationProperties.Name="{Binding Loc[field.primary_color]}" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding AccentColor}" UseFloatingWatermark="True"
+                 Watermark="{Binding Loc[field.accent_color]}" AutomationProperties.Name="{Binding Loc[field.accent_color]}" />
+        <ComboBox Grid.Row="2" Grid.Column="0" ItemsSource="{Binding ColumnOptions}" SelectedItem="{Binding SelectedColumns}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[lead.columns]}" />
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding SidebarOptions}" SelectedItem="{Binding SelectedSidebar}"
+                  HorizontalAlignment="Stretch" AutomationProperties.Name="{Binding Loc[lead.sidebar]}" />
+        <TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding SectionPriority}" UseFloatingWatermark="True"
+                 Watermark="{Binding Loc[lead.priority]}" AutomationProperties.Name="{Binding Loc[lead.priority]}" />
+      </Grid>
+    </Border>
+
+    <WrapPanel>
+      <Button Margin="0,0,8,8" Classes="accent" Content="{Binding Loc[lead.generate]}" Command="{Binding GenerateCommand}"
+              AutomationProperties.Name="{Binding Loc[lead.generate]}" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[lead.copy]}" Command="{Binding CopyCommand}"
+              AutomationProperties.Name="{Binding Loc[lead.copy]}" />
+      <Button Margin="0,0,8,8" Content="ChatGPT" Command="{Binding OpenLinkCommand}" CommandParameter="{Binding Shortcuts[0]}"
+              AutomationProperties.Name="ChatGPT" />
+      <Button Margin="0,0,8,8" Content="Claude" Command="{Binding OpenLinkCommand}" CommandParameter="{Binding Shortcuts[1]}"
+              AutomationProperties.Name="Claude" />
+      <Button Margin="0,0,8,8" Content="Gemini" Command="{Binding OpenLinkCommand}" CommandParameter="{Binding Shortcuts[2]}"
+              AutomationProperties.Name="Gemini" />
+      <Button Margin="0,0,8,8" Content="{Binding Loc[lead.import]}" Command="{Binding ImportHtmlCommand}"
+              AutomationProperties.Name="{Binding Loc[lead.import]}" />
+    </WrapPanel>
+
+    <TextBox Text="{Binding Lead}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="260" MaxHeight="420"
+             FlowDirection="LeftToRight" FontFamily="Consolas, Menlo, monospace"
+             AutomationProperties.Name="{Binding Loc[lead.output]}" />
+  </StackPanel>
+</UserControl>
