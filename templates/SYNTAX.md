@@ -39,7 +39,7 @@ All string values (except `font_base64`, `font_bold_base64`) are **HTML-escaped 
 - Starts with `<!DOCTYPE html>` and `<html dir="{{ direction }}" lang="{{ lang }}">`
 - One `<style>` block containing `@font-face` using `url(data:font/woff2;base64,{{ font_base64 }})`
 - Semantic HTML5: `<header>`, `<main>`, `<section>`, `<article>`
-- A4 print CSS: `@page { size: A4; margin: 1cm }`, `break-inside: avoid` on entries
+- A4 print CSS: `@page { size: A4; margin: 18mm 20mm }`, `break-inside: avoid` on entries
 - `html[dir="rtl"]` / `html[dir="ltr"]` selectors for direction-specific CSS (prefer logical properties)
 - Must contain `{{ profile.contact.full_name }}` and a `{{ for section in profile.sections }}` loop (the validator checks)
 - No `<script>`, no external URLs

@@ -9,7 +9,7 @@ import { exportHtml, printPdf } from '../export.js';
 
 const FALLBACK = `<!DOCTYPE html><html dir="{{ direction }}" lang="{{ lang }}"><head><meta charset="utf-8"><title>{{ labels.cover_letter }}</title>
 <style>@font-face{font-family:"{{ font_family }}";src:url(data:font/woff2;base64,{{ font_base64 }}) format("woff2")}
-@page{size:A4;margin:1cm}body{font-family:"{{ font_family }}",sans-serif;line-height:1.8;padding:1cm;color:#222}h1{color:{{ primary_color }}}</style></head>
+@page{size:A4;margin:18mm 20mm}body{font-family:"{{ font_family }}",sans-serif;line-height:1.8;color:#222}@media screen{body{max-width:210mm;margin:0 auto;padding:18mm 20mm}}h1{color:{{ primary_color }}}</style></head>
 <body><header><h1>{{ profile.contact.full_name }}</h1></header><main>{{ for p in paragraphs }}<p>{{ p }}</p>{{ end }}</main></body></html>`;
 
 export async function mount(root, { params }) {

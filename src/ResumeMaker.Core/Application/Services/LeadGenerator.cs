@@ -106,7 +106,7 @@ public sealed class LeadGenerator(LeadHistory? history = null)
             .AppendLine("6. Embed the font with @font-face using `src: url(data:font/woff2;base64,{{ font_base64 }}) format(\"woff2\");` (and `{{ font_bold_base64 }}` for bold).")
             .AppendLine($"7. Start with `<!DOCTYPE html>` and `<html dir=\"{{{{ direction }}}}\" lang=\"{{{{ lang }}}}\">` ({(rtl ? "RTL for Persian" : "LTR for English")}); use CSS logical properties and `html[dir=\"rtl\"]` / `html[dir=\"ltr\"]` selectors.")
             .AppendLine("8. Use semantic HTML5: <header>, <main>, <section>, <article>.")
-            .AppendLine("9. Print-friendly: `@page { size: A4; margin: 1cm }`, no overflow, `break-inside: avoid` on entries.")
+            .AppendLine("9. Print-friendly: `@page { size: A4; margin: 18mm 20mm }`, no overflow, `break-inside: avoid` on entries.")
             .AppendLine("10. Maximum 2 colors (primary + accent) plus black/white; hierarchy through typography, generous white space.")
             .AppendLine("11. The template MUST contain `{{ profile.contact.full_name }}` and a `{{ for section in profile.sections }}` loop.")
             .AppendLine();

@@ -126,7 +126,7 @@ ${json(EXAMPLE[lang])}
 5. Must contain \`{{ profile.contact.full_name }}\` and \`{{ for section in profile.sections }}\` (render each section generically; branch on \`section.type\` with == "..." when layouts differ).
 6. Use colors via the values {{ primary_color }} and {{ accent_color }} inside the CSS. Max 2 colors + black/white/grays.
 7. Semantic HTML5: <header>, <main>, <section>, <article>.
-8. Print-friendly A4: \`@page { size: A4; margin: 1cm }\`, \`break-inside: avoid\` on entries, no overflow, 1 page for typical data.
+8. Print-friendly A4: \`@page { size: A4; margin: 18mm 20mm }\`, \`break-inside: avoid\` on entries, no overflow, 1 page for typical data.
 9. Hide every optional part with {{ if ... }} so no empty labels, dashes or separators appear when data is missing.
 10. Visual style: ${STYLE_HINT[style]}.
 
