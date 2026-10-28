@@ -70,7 +70,19 @@ public sealed partial class PreviewService : IDisposable
     {
         var tmp = FilePath + ".tmp";
         await File.WriteAllTextAsync(tmp, content);
-        File.Move(tmp, FilePath, overwrite: true);
+        for (var attempt = 1; ; attempt++)
+        {
+            try
+            {
+                File.Move(tmp, FilePath, overwrite: true);
+                return;
+            }
+            catch (IOException) when (attempt < 10)
+            {
+                // A browser (or another reader) briefly holds the file open on Windows.
+                await Task.Delay(50);
+            }
+        }
     }
 
     public static string InjectRefresh(string html, int seconds)
