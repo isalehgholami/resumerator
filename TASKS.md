@@ -86,4 +86,4 @@
 - [x] T8.1 `dotnet build` و `dotnet test` سبز
 - [x] T8.2 مرور معیارهای پذیرش (بخش 13 Discovery)
 - [x] T8.3 Push به `github.com/isalehgholami/resumerator`
-- [ ] T8.4 تأیید سبز بودن CI و Pages
+- [x] T8.4 تأیید سبز بودن CI و Pages
