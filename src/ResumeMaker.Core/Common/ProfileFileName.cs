@@ -13,7 +13,7 @@ public static class ProfileFileName
         {
             return fallback;
         }
-        var invalid = Path.GetInvalidFileNameChars();
+        var invalid = "<>:\"/\\|?*".ToCharArray();
         var sb = new StringBuilder(name.Length);
         foreach (var c in name.Trim())
         {

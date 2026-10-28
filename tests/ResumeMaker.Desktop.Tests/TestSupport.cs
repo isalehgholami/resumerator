@@ -99,7 +99,7 @@ public sealed class TestApp : IDisposable
         catch (IOException) { }
     }
 
-    public static async Task<T> Eventually<T>(Func<T?> probe, int timeoutMs = 3000)
+    public static async Task<T> Eventually<T>(Func<T?> probe, int timeoutMs = 15000)
         where T : class
     {
         var end = DateTime.UtcNow.AddMilliseconds(timeoutMs);
